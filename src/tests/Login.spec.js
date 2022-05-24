@@ -1,7 +1,7 @@
-import React from 'react';
-import App from '../App';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
+import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
 describe('Testa a página de Login',
@@ -24,13 +24,23 @@ describe('Testa a página de Login',
     expect(email).toBeInTheDocument();
   })
 
-  it('Testa se o botão de começar o jogo está na página.',
+  it('Testa se o botão de começar e settings do jogo está na página.',
   () => {
     renderWithRouterAndRedux(<App />);
 
     const button = screen.getByTestId('btn-play');
+    const settings = screen.getByTestId('btn-settings')
 
     expect(button).toBeInTheDocument();
+    expect(settings).toBeInTheDocument();
+  })
+
+  it('teste o botão settings', () => {
+    const { history } = renderWithRouterAndRedux(<App />)
+    const settings = screen.getByTestId('btn-settings')
+    userEvent.click(settings)
+    expect(history.location.pathname).toBe('/settings')
+    expect(screen.getByTestId('settings-title')).toBeInTheDocument();
   })
 
   it('Testa se o botão está desabilitado ao carregar a página com os inputs vazios.',

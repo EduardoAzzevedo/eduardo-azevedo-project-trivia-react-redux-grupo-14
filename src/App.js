@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
-
-// Componentes
+import Game from './pages/Game';
 import Login from './pages/Login';
-import StartGame from './pages/Game';
 import Settings from './pages/Settings';
+
 
 class App extends Component {
   render() {
@@ -14,7 +13,7 @@ class App extends Component {
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
         <Route
           path="/game"
-          render={ (props) => <StartGame { ...props } /> }
+          render={ (props) => <Game { ...props } /> }
         />
         <Route
           path="/settings"
