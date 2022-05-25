@@ -4,6 +4,10 @@ import React from 'react';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
+// helpers
+import * as helpers from '../helpers'
+import fetchTokenAPI from '../helpers/fetchAPI';
+
 describe('Testa a página de Login',
 () => {
   it('Testa se ao carregar a página a rota é "/".',
@@ -64,5 +68,62 @@ describe('Testa a página de Login',
     userEvent.type(email, 'teste@test.com');
 
     expect(button).toBeEnabled();
+  })
+
+  it('Testa o armazenamento da Store', () => {
+    const { store } = renderWithRouterAndRedux(<App />);
+    const name = screen.getByTestId('input-player-name');
+    const email = screen.getByTestId('input-gravatar-email');
+    const button = screen.getByTestId('btn-play');
+
+    userEvent.type(name, 'sdasasasd asdasda');
+    userEvent.type(email, 'teste@test.com');
+    userEvent.click(button);
+
+    const { player } = store.getState();
+    expect(player.name).toBe('sdasasasd asdasda');
+    expect(player.gravatarEmail).toBe('teste@test.com');
+  });
+
+  it('Testa o armazenamento do localStorage', () => {
+    renderWithRouterAndRedux(<App />);
+
+    const response = {
+      "response_code":0,
+      "response_message":"Token Generated Successfully!",
+      "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6"
+    }
+
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(response),
+    }));
+
+    const name = screen.getByTestId('input-player-name');
+    const email = screen.getByTestId('input-gravatar-email');
+    const button = screen.getByTestId('btn-play');
+
+    userEvent.type(name, 'sdasasasd asdasda');
+    userEvent.type(email, 'teste@test.com');
+    userEvent.click(button);
+
+    expect(localStorage.length).toBe(1);
+
+  });
+
+  it('Testa a chamada do da API do Token',
+  () => {
+    const response = {
+      "response_code":0,
+      "response_message":"Token Generated Successfully!",
+      "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6"
+    }
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(response),
+    }));
+
+    const endpoint = 'https://opentdb.com/api_token.php?command=request';
+    fetchTokenAPI();
+    expect(fetch).toHaveBeenCalled();
+    expect(fetch).toHaveBeenCalledWith(endpoint);
   })
 });

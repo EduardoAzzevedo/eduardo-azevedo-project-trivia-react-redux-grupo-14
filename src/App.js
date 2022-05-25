@@ -5,7 +5,6 @@ import Game from './pages/Game';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
 
-
 class App extends Component {
   render() {
     return (
