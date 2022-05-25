@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+// Actions
+import * as actions from '../redux/actions';
+
+// Helpers
+import * as helpers from '../helpers';
+import fetchTokenAPI from '../helpers/fetchAPI';
 
 class Login extends Component {
   constructor() {
@@ -17,9 +25,20 @@ class Login extends Component {
     }, () => this.onHandleCheck());
   }
 
+  onGetToken = async () => {
+    // Pegando o TOKEN
+    if (!helpers.getToken()) {
+      const token = await fetchTokenAPI();
+      helpers.setToken(token);
+    }
+  }
+
   onHandleClick = () => {
-    const { history } = this.props;
-    history.push('/start-game');
+    const { name, email } = this.state;
+    const { dispatch, history } = this.props;
+    dispatch(actions.changeUser({ name, email }));
+    this.onGetToken();
+    history.push('/game');
   }
 
   onHandleCheck = () => {
@@ -63,6 +82,7 @@ class Login extends Component {
           type="button"
           disabled={ disabled }
           data-testid="btn-play"
+          onClick={ this.onHandleClick }
         >
           Play
         </button>
@@ -82,4 +102,4 @@ Login.propTypes = {
   history: PropTypes.objectOf(PropTypes.shape),
 }.isRequired;
 
-export default Login;
+export default connect()(Login);
