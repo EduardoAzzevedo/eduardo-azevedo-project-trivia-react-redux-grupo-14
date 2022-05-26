@@ -8,7 +8,6 @@ class QuestionMult extends Component {
     const incorrectAnswers = question.incorrect_answers;
     const correctAnswer = question.correct_answer;
     const options = [...incorrectAnswers, correctAnswer];
-    console.log(options);
     return (
       <section>
         <div>
