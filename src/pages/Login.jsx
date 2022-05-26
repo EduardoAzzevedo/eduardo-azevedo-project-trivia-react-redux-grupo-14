@@ -27,18 +27,19 @@ class Login extends Component {
 
   onGetToken = async () => {
     // Pegando o TOKEN
-    if (!helpers.getToken()) {
-      const token = await fetchTokenAPI();
-      helpers.setToken(token);
-    }
+    // if (!helpers.getToken()) {
+    const { history } = this.props;
+    const token = await fetchTokenAPI();
+    helpers.setToken(token);
+    this.setState({}, () => history.push('/game'));
+    // }
   }
 
   onHandleClick = () => {
     const { name, email } = this.state;
-    const { dispatch, history } = this.props;
+    const { dispatch } = this.props;
     dispatch(actions.changeUser({ name, email }));
     this.onGetToken();
-    history.push('/game');
   }
 
   onHandleCheck = () => {

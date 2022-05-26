@@ -29,6 +29,7 @@ class Game extends Component {
       history.push('/');
     } else {
       this.setState({ question: data.results });
+      console.log(data.results);
     }
   }
 
