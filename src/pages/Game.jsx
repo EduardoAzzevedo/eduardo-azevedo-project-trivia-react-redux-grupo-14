@@ -2,20 +2,53 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getToken, setToken } from '../helpers';
-import QuestionBool from '../components/QuestionBool';
-import QuestionMult from '../components/QuestionMult';
+
+// Componentes
+import Question from '../components/Question';
 
 class Game extends Component {
   constructor() {
     super();
     this.state = {
-      question: [],
       index: 0,
+      questions: [],
+      answers: [],
     };
   }
 
   componentDidMount = () => {
     this.onFetchQuestion();
+  }
+
+  moveArrayElement = (arr, from, to) => {
+    const el = arr[from];
+    arr.splice(from, 1);
+    arr.splice(to, 0, el);
+  };
+
+  drawOptions = (array) => {
+    const arraySize = array.length - 1;
+    array.forEach((el, index) => {
+      const indice = Math.floor(Math.random() * arraySize);
+      this.moveArrayElement(array, index, indice);
+    });
+    return array;
+  }
+
+  onGetAnswer = () => {
+    const { questions, index } = this.state;
+    const {
+      incorrect_answers: incorrectAnswers, correct_answer: correctAnswer,
+    } = questions[index];
+
+    const answers = [
+      { value: correctAnswer, correct: true },
+      ...incorrectAnswers.map((answer, id) => ({ value: answer, id, correct: false })),
+    ];
+
+    const correctionFactor = 0.5;
+    answers.sort(() => Math.random() - correctionFactor);
+    this.setState({ answers });
   }
 
   onFetchQuestion = async () => {
@@ -28,18 +61,16 @@ class Game extends Component {
       setToken('');
       history.push('/');
     } else {
-      this.setState({ question: data.results });
-      console.log(data.results);
+      this.setState({ questions: data.results }, () => this.onGetAnswer());
     }
   }
 
   onRenderQuestion = () => {
-    const { question, index } = this.state;
-    if (question.length > 0) {
-      const { type } = question[index];
-      if (type === 'boolean') return (<QuestionBool question={ question[index] } />);
-      return (<QuestionMult question={ question[index] } />);
+    const { questions, index, answers } = this.state;
+    if (questions.length > 0) {
+      return (<Question question={ questions[index] } answers={ answers } />);
     }
+    return (<h2>Loaging</h2>);
   }
 
   render() {
