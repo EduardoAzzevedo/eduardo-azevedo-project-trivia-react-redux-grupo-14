@@ -18,12 +18,6 @@ class QuestionMult extends Component {
    return array;
  }
 
- /* getIndex = (option, incorrectAnswersIndex) => {
-   if (incorrectAnswersIndex.(({ q }) => q.includes(option))) {
-     return incorrectAnswersIndex;
-   }
- } */
-
  render() {
    const { question } = this.props;
    const incorrectAnswers = question.incorrect_answers;
