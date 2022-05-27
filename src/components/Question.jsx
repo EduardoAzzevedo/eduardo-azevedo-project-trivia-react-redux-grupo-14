@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { nextTrue } from '../redux/actions';
 import './style/Question.css';
+
+// Actions
+import * as actions from '../redux/actions/index';
 
 class Question extends Component {
   constructor() {
@@ -13,6 +15,17 @@ class Question extends Component {
       timeOut: 30,
       disabled: false,
     };
+  }
+
+  onCalculateScore = (timeout) => {
+    const { question, dispatch } = this.props;
+    const { difficulty } = question;
+    const hardValue = 3;
+    const constNumber = 10;
+    const mediumOrEasy = difficulty === 'medium' ? 2 : 1;
+    const diffPoint = difficulty === 'hard' ? hardValue : mediumOrEasy;
+    const score = constNumber + (timeout * diffPoint);
+    dispatch(actions.changeScore(score));
   }
 
   componentDidMount = () => {
@@ -34,15 +47,23 @@ class Question extends Component {
     }, ONE_SECOND);
   }
 
-  onHandleClick = () => {
-    const { dispatch } = this.props;
+  onHandleClick = (e) => {
+    const { timeOut } = this.state;
+    const { question, dispatch } = this.props;
     this.setState((prevS) => ({
       correctAnswer: 'correct-answer',
       wrongAnswer: 'wrong-answer',
       disabled: true,
       timeOut: prevS.timeOut,
     }));
-    dispatch(nextTrue());
+    if (e !== undefined) {
+      const option = e.target.innerHTML;
+      if (question.correct_answer === option) {
+        this.onCalculateScore(timeOut);
+        dispatch(actions.changeAssertions());
+      }
+    }
+    dispatch(actions.nextTrue());
   };
 
   render() {
@@ -62,8 +83,9 @@ class Question extends Component {
               data-testid={
                 option.correct ? 'correct-answer' : `wrong-answer-${option.id}`
               }
+              id={ option.correct ? 'correct' : 'wrong' }
               className={ option.correct ? correctAnswer : wrongAnswer }
-              onClick={ this.onHandleClick }
+              onClick={ (e) => this.onHandleClick(e) }
               disabled={ disabled }
             >
               {option.value}

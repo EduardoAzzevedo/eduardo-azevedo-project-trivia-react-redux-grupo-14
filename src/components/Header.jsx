@@ -32,7 +32,7 @@ class Header extends Component {
           alt="Avatar do Gravatar"
         />
         <p data-testid="header-player-name">{ player.name }</p>
-        <span data-testid="header-score">0</span>
+        <span data-testid="header-score">{ player.score }</span>
       </header>
     );
   }
