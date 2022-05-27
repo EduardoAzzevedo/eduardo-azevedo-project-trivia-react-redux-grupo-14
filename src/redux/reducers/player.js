@@ -18,7 +18,7 @@ const player = (state = INITIAL_STATE, action) => {
   case CHANGE_SCORE:
     return {
       ...state,
-      score: action.payload,
+      score: state.score + action.payload,
     };
   case CHANGE_ASSERTIONS:
     return {

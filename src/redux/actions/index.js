@@ -18,6 +18,7 @@ export const changeAssertions = () => ({
   type: CHANGE_ASSERTIONS,
 });
 
-export const nextTrue = () => ({
+export const nextTrue = (state) => ({
   type: NEXT_TRUE,
+  payload: state,
 });
