@@ -21,21 +21,6 @@ class Game extends Component {
     this.onFetchQuestion();
   }
 
-  moveArrayElement = (arr, from, to) => {
-    const el = arr[from];
-    arr.splice(from, 1);
-    arr.splice(to, 0, el);
-  };
-
-  drawOptions = (array) => {
-    const arraySize = array.length - 1;
-    array.forEach((el, index) => {
-      const indice = Math.floor(Math.random() * arraySize);
-      this.moveArrayElement(array, index, indice);
-    });
-    return array;
-  }
-
   onGetAnswer = () => {
     const { questions, index } = this.state;
     const {

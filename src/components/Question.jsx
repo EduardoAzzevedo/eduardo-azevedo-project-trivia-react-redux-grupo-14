@@ -10,20 +10,43 @@ class Question extends Component {
     this.state = {
       wrongAnswer: '',
       correctAnswer: '',
+      timeOut: 30,
+      disabled: false,
     };
+  }
+
+  componentDidMount = () => {
+    const ONE_SECOND = 1000;
+    const timeInt = setInterval(() => {
+      const { disabled } = this.state;
+      if (disabled) {
+        clearInterval(timeInt);
+      }
+      this.setState((prevState) => ({
+        timeOut: prevState.timeOut - 1,
+      }), () => {
+        const { timeOut } = this.state;
+        if (timeOut === 0 || disabled) {
+          clearInterval(timeInt);
+          this.onHandleClick();
+        }
+      });
+    }, ONE_SECOND);
   }
 
   onHandleClick = () => {
     const { dispatch } = this.props;
-    this.setState({
+    this.setState((prevS) => ({
       correctAnswer: 'correct-answer',
       wrongAnswer: 'wrong-answer',
-    });
+      disabled: true,
+      timeOut: prevS.timeOut,
+    }));
     dispatch(nextTrue());
   };
 
   render() {
-    const { wrongAnswer, correctAnswer } = this.state;
+    const { wrongAnswer, correctAnswer, timeOut, disabled } = this.state;
     const { question, answers } = this.props;
     return (
       <section>
@@ -41,10 +64,14 @@ class Question extends Component {
               }
               className={ option.correct ? correctAnswer : wrongAnswer }
               onClick={ this.onHandleClick }
+              disabled={ disabled }
             >
               {option.value}
             </button>
           ))}
+        </div>
+        <div className="time">
+          {timeOut}
         </div>
       </section>
     );
