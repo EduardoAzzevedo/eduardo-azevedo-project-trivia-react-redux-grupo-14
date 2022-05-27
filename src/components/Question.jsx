@@ -12,6 +12,8 @@ class Question extends Component {
     this.state = {
       wrongAnswer: '',
       correctAnswer: '',
+      timeOut: 30,
+      disabled: false,
     };
   }
 
@@ -26,15 +28,46 @@ class Question extends Component {
     dispatch(actions.changeScore(score));
   }
 
-  onHandleClick = () => {
-    this.setState({
+  componentDidMount = () => {
+    const ONE_SECOND = 1000;
+    const timeInt = setInterval(() => {
+      const { disabled } = this.state;
+      if (disabled) {
+        clearInterval(timeInt);
+      }
+      this.setState((prevState) => ({
+        timeOut: prevState.timeOut - 1,
+      }), () => {
+        const { timeOut } = this.state;
+        if (timeOut === 0 || disabled) {
+          clearInterval(timeInt);
+          this.onHandleClick();
+        }
+      });
+    }, ONE_SECOND);
+  }
+
+  onHandleClick = (e) => {
+    const { timeOut } = this.state;
+    const { question, dispatch } = this.props;
+    this.setState((prevS) => ({
       correctAnswer: 'correct-answer',
       wrongAnswer: 'wrong-answer',
-    });
+      disabled: true,
+      timeOut: prevS.timeOut,
+    }));
+    if (e !== undefined) {
+      const option = e.target.innerHTML;
+      if (question.correct_answer === option) {
+        this.onCalculateScore(timeOut);
+        dispatch(actions.changeAssertions());
+      }
+    }
+    dispatch(actions.nextTrue());
   };
 
   render() {
-    const { wrongAnswer, correctAnswer } = this.state;
+    const { wrongAnswer, correctAnswer, timeOut, disabled } = this.state;
     const { question, answers } = this.props;
     return (
       <section>
@@ -52,11 +85,15 @@ class Question extends Component {
               }
               id={ option.correct ? 'correct' : 'wrong' }
               className={ option.correct ? correctAnswer : wrongAnswer }
-              onClick={ this.onHandleClick }
+              onClick={ (e) => this.onHandleClick(e) }
+              disabled={ disabled }
             >
               {option.value}
             </button>
           ))}
+        </div>
+        <div className="time">
+          {timeOut}
         </div>
       </section>
     );

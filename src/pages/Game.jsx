@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getToken, setToken } from '../helpers';
@@ -18,21 +19,6 @@ class Game extends Component {
 
   componentDidMount = () => {
     this.onFetchQuestion();
-  }
-
-  moveArrayElement = (arr, from, to) => {
-    const el = arr[from];
-    arr.splice(from, 1);
-    arr.splice(to, 0, el);
-  };
-
-  drawOptions = (array) => {
-    const arraySize = array.length - 1;
-    array.forEach((el, index) => {
-      const indice = Math.floor(Math.random() * arraySize);
-      this.moveArrayElement(array, index, indice);
-    });
-    return array;
   }
 
   onGetAnswer = () => {
@@ -74,18 +60,30 @@ class Game extends Component {
   }
 
   render() {
-    // console.log(category.category);
+    const { isNext } = this.props;
     return (
       <div>
         <Header />
         { this.onRenderQuestion() }
+        {isNext && (
+          <button
+            type="button"
+            data-testid="btn-next"
+          >
+            Next
+          </button>
+        )}
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  isNext: state.game.isNext,
+});
+
 Game.propTypes = {
   history: PropTypes.objectOf(PropTypes.shape),
 }.isRequired;
 
-export default Game;
+export default connect(mapStateToProps)(Game);
