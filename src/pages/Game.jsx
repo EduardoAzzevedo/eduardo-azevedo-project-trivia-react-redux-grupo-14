@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getToken, setToken } from '../helpers';
@@ -59,17 +60,30 @@ class Game extends Component {
   }
 
   render() {
+    const { isNext } = this.props;
     return (
       <div>
         <Header />
         { this.onRenderQuestion() }
+        {isNext && (
+          <button
+            type="button"
+            data-testid="btn-next"
+          >
+            Next
+          </button>
+        )}
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  isNext: state.game.isNext,
+});
+
 Game.propTypes = {
   history: PropTypes.objectOf(PropTypes.shape),
 }.isRequired;
 
-export default Game;
+export default connect(mapStateToProps)(Game);
