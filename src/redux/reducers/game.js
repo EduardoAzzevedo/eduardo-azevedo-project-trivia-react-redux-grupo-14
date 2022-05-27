@@ -9,7 +9,7 @@ const game = (state = INITIAL_STATE, action) => {
   case NEXT_TRUE:
     return {
       ...state,
-      isNext: true,
+      isNext: action.payload,
     };
   default: return state;
   }

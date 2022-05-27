@@ -4,6 +4,7 @@ import './App.css';
 import Game from './pages/Game';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
+import Feedback from './pages/Feedback';
 
 class App extends Component {
   render() {
@@ -17,6 +18,10 @@ class App extends Component {
         <Route
           path="/settings"
           render={ (props) => <Settings { ...props } /> }
+        />
+        <Route
+          path="/feedback"
+          render={ (props) => <Feedback { ...props } /> }
         />
       </Switch>
     );
