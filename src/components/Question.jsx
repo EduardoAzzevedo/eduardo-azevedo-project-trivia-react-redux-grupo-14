@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './style/Question.css';
 
+// Actions
+import * as actions from '../redux/actions/index';
+
 class Question extends Component {
   constructor() {
     super();
@@ -10,6 +13,17 @@ class Question extends Component {
       wrongAnswer: '',
       correctAnswer: '',
     };
+  }
+
+  onCalculateScore = (timeout) => {
+    const { question, dispatch } = this.props;
+    const { difficulty } = question;
+    const hardValue = 3;
+    const constNumber = 10;
+    const mediumOrEasy = difficulty === 'medium' ? 2 : 1;
+    const diffPoint = difficulty === 'hard' ? hardValue : mediumOrEasy;
+    const score = constNumber + (timeout * diffPoint);
+    dispatch(actions.changeScore(score));
   }
 
   onHandleClick = () => {
@@ -36,6 +50,7 @@ class Question extends Component {
               data-testid={
                 option.correct ? 'correct-answer' : `wrong-answer-${option.id}`
               }
+              id={ option.correct ? 'correct' : 'wrong' }
               className={ option.correct ? correctAnswer : wrongAnswer }
               onClick={ this.onHandleClick }
             >
