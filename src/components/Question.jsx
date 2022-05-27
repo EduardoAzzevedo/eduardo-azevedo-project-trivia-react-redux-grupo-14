@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import './style/Question.css';
 
-class QuestionMult extends Component {
+class Question extends Component {
+  constructor() {
+    super();
+    this.state = {
+      wrongAnswer: '',
+      correctAnswer: '',
+    };
+  }
+
+  onHandleClick = () => {
+    this.setState({
+      correctAnswer: 'correct-answer',
+      wrongAnswer: 'wrong-answer',
+    });
+  };
+
   render() {
+    const { wrongAnswer, correctAnswer } = this.state;
     const { question, answers } = this.props;
     return (
       <section>
@@ -19,6 +36,8 @@ class QuestionMult extends Component {
               data-testid={
                 option.correct ? 'correct-answer' : `wrong-answer-${option.id}`
               }
+              className={ option.correct ? correctAnswer : wrongAnswer }
+              onClick={ this.onHandleClick }
             >
               {option.value}
             </button>
@@ -29,9 +48,9 @@ class QuestionMult extends Component {
   }
 }
 
-QuestionMult.propTypes = {
+Question.propTypes = {
   question: PropTypes.objectOf(PropTypes.shape),
   answers: PropTypes.objectOf(PropTypes.shape),
 }.isRequired;
 
-export default connect()(QuestionMult);
+export default connect()(Question);
