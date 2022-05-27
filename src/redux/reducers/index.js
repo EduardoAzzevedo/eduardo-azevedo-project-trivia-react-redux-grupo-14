@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import player from './player';
-import fetchAPI from './fetchAPI';
+import game from './game';
 
 const rootReducer = combineReducers({
   player,
-  fetchAPI,
+  game,
 });
 
 export default rootReducer;

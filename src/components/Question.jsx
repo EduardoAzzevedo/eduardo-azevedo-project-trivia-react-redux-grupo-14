@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { nextTrue } from '../redux/actions';
 import './style/Question.css';
 
 class Question extends Component {
@@ -13,10 +14,12 @@ class Question extends Component {
   }
 
   onHandleClick = () => {
+    const { dispatch } = this.props;
     this.setState({
       correctAnswer: 'correct-answer',
       wrongAnswer: 'wrong-answer',
     });
+    dispatch(nextTrue());
   };
 
   render() {
