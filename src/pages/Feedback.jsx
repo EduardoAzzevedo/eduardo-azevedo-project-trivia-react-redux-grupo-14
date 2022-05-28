@@ -34,6 +34,13 @@ class Feedback extends Component {
         >
           Play again
         </button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ () => history.push('./ranking') }
+        >
+          Ranking
+        </button>
       </section>
     );
   }
@@ -45,6 +52,7 @@ const mapStateToProps = (state) => ({
 });
 
 Feedback.propTypes = {
+  history: PropTypes.objectOf(PropTypes.shape),
   assertions: PropTypes.number,
   score: PropTypes.number,
 }.isRequired;
