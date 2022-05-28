@@ -8,7 +8,6 @@ import Header from '../components/Header';
 class Feedback extends Component {
   render() {
     const { assertions, score, history } = this.props;
-    console.log(history);
     const NUM_3 = 3;
     return (
       <section>
