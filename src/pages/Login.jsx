@@ -19,6 +19,11 @@ class Login extends Component {
     };
   }
 
+  componentDidMount = () => {
+    const { dispatch } = this.props;
+    dispatch(actions.resetPlayer());
+  }
+
   onHandleChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value,
