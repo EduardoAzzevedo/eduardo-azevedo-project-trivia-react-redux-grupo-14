@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import md5 from 'crypto-js/md5';
+import { saveImage } from '../redux/actions';
 
 class Header extends Component {
   constructor() {
@@ -13,9 +13,10 @@ class Header extends Component {
   }
 
   componentDidMount = () => {
-    const { player } = this.props;
+    const { player, dispatch } = this.props;
     const { gravatarEmail } = player;
     const cryptoEmail = md5(gravatarEmail).toString();
+    dispatch(saveImage(`https://www.gravatar.com/avatar/${cryptoEmail}`));
     this.setState({
       gravatar: cryptoEmail,
     });
