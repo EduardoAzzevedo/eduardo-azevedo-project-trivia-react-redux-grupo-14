@@ -71,12 +71,25 @@ class Game extends Component {
     this.setState({ answers });
   }
 
+  onGeneratorURL = (token) => {
+    const { settings } = this.props;
+    const { category, difficulty, type } = settings;
+    const defaultURL = 'https://opentdb.com/api.php?amount=5';
+    const categories = category !== '' ? `&category=${category}` : '';
+    const difficulties = difficulty !== '' ? `&difficulty=${difficulty}` : '';
+    const types = type !== '' ? `&type=${type}` : '';
+    const url = `${defaultURL}${categories}${difficulties}${types}&token=${token}`;
+    return url;
+  }
+
   onFetchQuestion = async () => {
     const { history } = this.props;
     const numberMagic = 3;
     const token = getToken();
-    const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+    const url = this.onGeneratorURL(token);
+    const response = await fetch(url);
     const data = await response.json();
+    console.log(data);
     if (data.response_code === numberMagic) {
       setToken('');
       history.push('/');
@@ -176,6 +189,7 @@ class Game extends Component {
 
 const mapStateToProps = (state) => ({
   isNext: state.game.isNext,
+  settings: state.settings,
 });
 
 Game.propTypes = {
