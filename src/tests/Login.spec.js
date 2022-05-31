@@ -106,7 +106,7 @@ describe('Testa a página de Login',
     userEvent.type(email, 'teste@test.com');
     userEvent.click(button);
 
-    expect(localStorage.length).toBe(1);
+    expect(localStorage.length).toBe(2);
 
   });
 
