@@ -5,7 +5,6 @@ import { getRanking } from '../helpers/rankingStorage';
 
 class Ranking extends React.Component {
   render() {
-    console.log(getRanking());
     const { history } = this.props;
     return (
       <div>
