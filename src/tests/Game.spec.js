@@ -1,11 +1,34 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
+import apiInvalida from './helpers/apiInvalidaMokada';
+import apiMokada from './helpers/apiMokada';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
-describe('Testa a página Game.',
+const INITIAL_STATE = {
+  player: {
+  name: 'playerInicial',
+  assertions: 0,
+  score: 0,
+  gravatarEmail: 'test@test.com',
+  correctAnswers: 0,
+  }
+}
+
+beforeEach(() => {
+  jest.useFakeTimers();
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({ json: jest.fn().mockResolvedValue(apiMokada)})
+});
+
+afterEach(() => {
+  jest.useRealTimers();
+})
+
+describe('Testa a página Game com 90%.',
 () => {
+
   it('Testa se ao carregar a página a rota é "/game".',
   () => {
     const { history } = renderWithRouterAndRedux(<App />)
@@ -13,39 +36,61 @@ describe('Testa a página Game.',
     expect(history.location.pathname).toBe('/game');
   })
 
-  it('Testa header no game',
+  it('Testa carregamento com token válido.',
   () => {
-    const { history } = renderWithRouterAndRedux(<App />)
-    history.push('/game')
-
+    //https://jestjs.io/pt-BR/docs/timer-mocks
+    //https://jestjs.io/pt-BR/docs/setup-teardown
   })
 
-  it('Testa botão next está habilitado',
+  it('Testa timer do componente Game- iniciando o timer', async () => {
+    renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game');
+    const timer = screen.getByTestId('timer');
+    expect(timer.innerHTML).toBe('30');
+  })
+
+  it('Testa timer do componente Game- timer inicial menos 30s', async () => {
+    renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game');
+    const timer = screen.getByTestId('timer');
+    expect(timer.innerHTML).toBe('30');
+    jest.advanceTimersByTime(30000);
+    expect(timer.innerHTML).toBe('0');
+  })
+
+  it('Testa se responde as 5 perguntas e direcionar para feedback.',
+  async () => {
+    const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game')
+
+    for (let i = 0; i < 5; i+= 1) {
+      // expect(screen.findByTestId('correct-answer')).toBeInTheDocument()
+      await waitFor(() => {
+        const correctAnswer = screen.getByTestId('correct-answer');
+        expect(correctAnswer).toBeInTheDocument()
+        userEvent.click(correctAnswer);
+        const btnNext = screen.getByTestId('btn-next');
+        expect(btnNext).toBeInTheDocument();
+        userEvent.click(btnNext)
+      });
+    }
+    expect(history.location.pathname).toBe('/feedback');
+  });
+
+  it('Testa se ao zerar o timer exibe o botão "Next".',
   () => {
-    const { history } = renderWithRouterAndRedux(<App />)
-    history.push('/game')
-    const wrongAnswer3 = screen.getByTestId('wrong-answer-2');
-    userEvent.click(wrongAnswer3)
+    const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game')
+    const timer = screen.getByTestId('timer');
+    jest.advanceTimersByTime(30000);
     const btnNext = screen.getByTestId('btn-next');
-    expect(btnNext).toBeInTheDocument;
-    userEvent.click(btnNext);
+    expect(btnNext).toBeInTheDocument();
   })
 
-  it('Testa perguntas', () => {
-    const { history } = renderWithRouterAndRedux(<App />)
-    history.push('/game')
-  
-    const questionText = screen.getByTestId('question-text');
-    const correctAnswer = screen.getByTestId('correct-answer');
-    const wrongAnswer1 = screen.getByTestId('wrong-answer-0');
-    const wrongAnswer2 = screen.getByTestId('wrong-answer-1');
-    const wrongAnswer3 = screen.getByTestId('wrong-answer-2');
-  
-    expect(questionText).toBeInTheDocument();
-    expect(correctAnswer).toBeInTheDocument();
-    expect(wrongAnswer1).toBeInTheDocument();
-    expect(wrongAnswer2).toBeInTheDocument();
-    expect(wrongAnswer3).toBeInTheDocument();
-  })
+  // it('Testa carregamento com token invalido.',
+  // () => {
+  // // () => {
+  // //   beforeEach(() => {
+  // //     jest.spyOn(global, 'fetch');
+  //     // global.fetch.mockResolvedValue({ json: jest.fn().mockResolvedValue(apiInvalida)})
+  // //   })
+  // // })
+  // }
 
 })

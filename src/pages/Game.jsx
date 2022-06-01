@@ -100,7 +100,7 @@ class Game extends Component {
         onHandleClick={ this.onHandleClick }
       />);
     }
-    return (<h2>Loaging</h2>);
+    return (<h2>Loading</h2>);
   }
 
   onChangeIndex = () => {
@@ -156,7 +156,10 @@ class Game extends Component {
     return (
       <div>
         <Header />
-        <div className="time">
+        <div
+          data-testid="timer"
+          className="time"
+        >
           {timeOut}
         </div>
         { this.onRenderQuestion() }
