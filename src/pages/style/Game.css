@@ -1,28 +1,28 @@
 header {
   align-items: center;
-  border-radius: 20px;
   border: solid 3px  #780096;
+  border-radius: 20px;
   display: flex;
   height: 130px;
   justify-content: space-around;
-  margin-top: 60px;
+  margin: 60px auto 0;
   width: 80%;
 }
 
 header img {
-  border-radius: 5px;
   border: solid 3px  #780096;
+  border-radius: 5px;
   margin: 10px;
 }
 
 header p {
-  color: #fff;
+  color: white;
   font-size: 40px;
   font-weight: 900;
 }
 
 header span {
-  color: #fff;
+  color: white;
   font-size: 35px;
   font-weight: 900;
 }
@@ -39,7 +39,7 @@ main {
   align-items: center;
   border: 3px solid rgb(6, 240, 15);
   border-radius: 20px;
-  color: #fff;
+  color: white;
   display: flex;
   flex-direction: column;
   font-size: 50px;
@@ -54,7 +54,7 @@ main {
   align-items: center;
   border: 3px solid red;
   border-radius: 20px;
-  color: #fff;
+  color: white;
   display: flex;
   flex-direction: column;
   font-size: 50px;
@@ -67,8 +67,8 @@ main {
 
 main .question-container {
   align-items: center;
-  border-radius: 20px;
   border: solid 3px  #780096;
+  border-radius: 20px;
   display: flex;
   height: 400px;
   justify-content: space-evenly;
@@ -92,13 +92,13 @@ main .question-container {
 }
 
 .question h2 {
-  color: #fff;
+  color: white;
   font-size: 40px;
   font-weight: 900;
 }
 
 .question p {
-  color: #fff;
+  color: white;
   font-size: 30px;
 }
 
@@ -130,8 +130,8 @@ main .question-container {
 }
 
 .time-ok-answer {
-  border-radius: 10px;
   border: solid 3px  #780096;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 18px;
   font-weight: 900;
@@ -144,11 +144,11 @@ main .question-container {
   color: black;
 }
 
-main #next-button {
+main .next-button {
   background-color: #780096;
-  border-radius: 10px;
   border: solid 3px  #8611a3;
-  color: #fff;
+  border-radius: 10px;
+  color: white;
   cursor: pointer;
   font-size: 25px;
   font-weight: 900;

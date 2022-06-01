@@ -61,7 +61,7 @@ class Login extends Component {
         <img src={ triviaImg } alt="trivia" />
         <form>
           <label htmlFor="name">
-            Play Name:
+            Player Name:
             <input
               id="name"
               type="text"

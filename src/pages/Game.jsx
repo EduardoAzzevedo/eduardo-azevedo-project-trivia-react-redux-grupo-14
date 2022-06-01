@@ -161,7 +161,7 @@ class Game extends Component {
           { this.onRenderQuestion() }
           {isNext && (
             <button
-              id="next-button"
+              className="next-button"
               type="button"
               data-testid="btn-next"
               onClick={ this.onChangeIndex }

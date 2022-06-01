@@ -1,33 +1,39 @@
 main .feedback-container {
   align-items: center;
-  border-radius: 20px;
   border: solid 3px #780096;
+  border-radius: 20px;
+  color: white;
   display: flex;
   flex-direction: column;
+  font-size: 30px;
   height: 400px;
   justify-content: space-evenly;
-  width: 80%;
-  color: #fff;
   margin: 30px 0;
-  font-size: 30px;
+  width: 80%;
 }
 
-#trivia-img {
-  margin-top: 30px;
-  margin-bottom: -30px;
-  height: 120px;
+.trivia-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0 -30px;
+  width: 100%;
+}
+
+.trivia-img {
+  height: 130px;
   width: 400px;
 }
 
 .feedback-container h2 {
   border: solid 3px #780096;
   border-radius: 20px;
-  width: 90%;
   font-size: 60px;
   font-weight: 900;
   margin: 0;
   padding: 10px;
   text-align: center;
+  width: 90%;
 }
 
 .feedback-container span {
@@ -39,9 +45,9 @@ main .feedback-container {
 .feedback-container div {
   align-items: center;
   display: flex;
+  gap: 10px;
   justify-content: center;
   width: 100%;
-  gap: 10px;
 }
 
 .button_feedback {
@@ -54,7 +60,7 @@ main .feedback-container {
   background-color: #780096;
   border: none;
   border-radius: 10px;
-  color: #fff;
+  color: white;
   cursor: pointer;
   font-size: 25px;
   font-weight: 900;

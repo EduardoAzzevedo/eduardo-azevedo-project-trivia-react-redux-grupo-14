@@ -12,14 +12,14 @@ class Ranking extends React.Component {
     return (
       <>
         <header>
-          <img id="trivia-img" src={ triviaImg } alt="trivia" />
-          <div>
+          <img className="trivia-img" src={ triviaImg } alt="trivia" />
+          <div className="title">
             <h2 data-testid="ranking-title">Ranking</h2>
           </div>
         </header>
         <main>
           <button
-            id="back-button"
+            className="back-button"
             type="button"
             data-testid="btn-go-home"
             onClick={ () => history.push('/') }
@@ -30,7 +30,7 @@ class Ranking extends React.Component {
             { getRanking().sort((a, b) => b.score - a.score).map((user, index) => (
               <div key={ index }>
                 <img src={ user.image } alt="gravatar_image" />
-                <div id="player-name">
+                <div className="player-name">
                   <h2 data-testid={ `player-name-${user.id}` }>{ user.name }</h2>
                 </div>
                 <h2 data-testid={ `player-score-${user.id}` }>{ user.score }</h2>

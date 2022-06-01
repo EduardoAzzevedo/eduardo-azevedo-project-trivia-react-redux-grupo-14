@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { rankingStorage, getRanking } from '../helpers/rankingStorage';
 import './style/Feedback.css';
 import triviaImg from '../imagens/trivia.png';
-
-// Componentes
 import Header from '../components/Header';
 
 class Feedback extends Component {
@@ -30,7 +28,9 @@ class Feedback extends Component {
     const NUM_3 = 3;
     return (
       <>
-        <img id="trivia-img" src={ triviaImg } alt="trivia" />
+        <div className="trivia-container">
+          <img className="trivia-img" src={ triviaImg } alt="trivia" />
+        </div>
         <Header />
         <main>
           <section className="feedback-container" data-testid="feedback-text">

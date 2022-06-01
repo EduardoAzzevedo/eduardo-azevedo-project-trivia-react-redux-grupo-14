@@ -1,23 +1,23 @@
-header #trivia-img {
-  width: 250px;
-  height: 100px;
+header .trivia-img {
   border: none;
+  height: 100px;
   margin: 0 0 0 30px;
+  width: 250px;
 }
 
-header div {
-  color: #fff;
+header .title {
+  color: white;
   font-size: 50px;
   font-weight: 900;
-  width: 75%;
   text-align: center;
+  width: 75%;
 }
 
-main #back-button {
+main .back-button {
   background-color: #780096;
-  border-radius: 10px;
   border: solid 3px  #8611a3;
-  color: #fff;
+  border-radius: 10px;
+  color: white;
   cursor: pointer;
   font-size: 25px;
   font-weight: 900;
@@ -36,28 +36,28 @@ main #back-button {
 
 .ranking-container div {
   align-items: center;
+  border: solid 3px  #8611a3;
+  border-radius: 10px;
   display: flex;
+  gap: 10px;
   justify-content: space-around;
   width: 100%;
-  gap: 10px;
-  border-radius: 10px;
-  border: solid 3px  #8611a3;
 }
 
 .ranking-container div img {
   padding: 8px;
 }
 
-.ranking-container div #player-name {
-  color: #fff;
+.ranking-container div .player-name {
+  border: none;
+  color: white;
   font-size: 25px;
   font-weight: 900;
-  border: none;
   width: 50%;
 }
 
 .ranking-container div h2 {
-  color: #fff;
+  color: white;
   font-size: 30px;
   font-weight: 900;
 }
