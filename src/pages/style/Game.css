@@ -1,6 +1,10 @@
 header {
   align-items: center;
-  border: solid 3px  #780096;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(black, rgba(0, 0, 0, 0.89)) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
+  border: 3px solid transparent;
   border-radius: 20px;
   display: flex;
   height: 130px;
@@ -37,6 +41,10 @@ main {
 
 .time-on {
   align-items: center;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(black, rgba(0, 0, 0, 0.89)) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
   border: 3px solid rgb(6, 240, 15);
   border-radius: 20px;
   color: white;
@@ -52,6 +60,10 @@ main {
 
 .time-finish {
   align-items: center;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(black, rgba(0, 0, 0, 0.89)) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
   border: 3px solid red;
   border-radius: 20px;
   color: white;
@@ -67,7 +79,11 @@ main {
 
 main .question-container {
   align-items: center;
-  border: solid 3px  #780096;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(black, rgba(0, 0, 0, 0.89)) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
+  border: 3px solid transparent;
   border-radius: 20px;
   display: flex;
   height: 400px;
@@ -130,7 +146,11 @@ main .question-container {
 }
 
 .time-ok-answer {
-  border: solid 3px  #780096;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(whitesmoke, whitesmoke) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
+  border: solid 3px transparent;
   border-radius: 10px;
   cursor: pointer;
   font-size: 18px;
@@ -146,7 +166,7 @@ main .question-container {
 
 main .next-button {
   background-color: #780096;
-  border: solid 3px  #8611a3;
+  border: solid 1px  rgb(37, 250, 232);
   border-radius: 10px;
   color: white;
   cursor: pointer;

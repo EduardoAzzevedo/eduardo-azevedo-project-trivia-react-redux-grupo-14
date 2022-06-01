@@ -1,6 +1,10 @@
 main .feedback-container {
   align-items: center;
-  border: solid 3px #780096;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(black, rgba(0, 0, 0, 0.89)) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
+  border: 3px solid transparent;
   border-radius: 20px;
   color: white;
   display: flex;
@@ -26,12 +30,16 @@ main .feedback-container {
 }
 
 .feedback-container h2 {
-  border: solid 3px #780096;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(black, rgba(0, 0, 0, 0.89)) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
+  border: 1px solid transparent;
   border-radius: 20px;
   font-size: 60px;
   font-weight: 900;
   margin: 0;
-  padding: 10px;
+  padding: 2px;
   text-align: center;
   width: 90%;
 }
@@ -58,7 +66,7 @@ main .feedback-container {
 
 .button_feedback button {
   background-color: #780096;
-  border: none;
+  border: solid 1px  rgb(37, 250, 232);
   border-radius: 10px;
   color: white;
   cursor: pointer;
