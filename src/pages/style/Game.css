@@ -65,7 +65,7 @@ main {
   width: 80%;
 }
 
-main section {
+main .question-container {
   align-items: center;
   border-radius: 20px;
   border: solid 3px  #780096;
@@ -132,6 +132,7 @@ main section {
 .time-ok-answer {
   border-radius: 10px;
   border: solid 3px  #780096;
+  cursor: pointer;
   font-size: 18px;
   font-weight: 900;
   height: 50px;

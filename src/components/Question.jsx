@@ -11,7 +11,7 @@ class Question extends Component {
       question, answers, wrongAnswer, correctAnswer, disabled, onHandleClick,
     } = this.props;
     return (
-      <section>
+      <section className="question-container">
         <div className="question">
           <div>
             <h2 data-testid="question-category">{question.category}</h2>
