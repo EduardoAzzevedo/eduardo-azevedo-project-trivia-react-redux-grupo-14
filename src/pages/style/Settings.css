@@ -1,0 +1,53 @@
+header h1 {
+  color: white;
+  font-size: 70px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.settings-forms {
+  align-items: center;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(black, rgba(0, 0, 0, 0.89)) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
+  border: 3px solid transparent;
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+.settings-forms label {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  width: 50%;
+}
+
+.settings-forms label select {
+  align-items: center;
+  background-clip: content-box , border-box;
+  background-image: linear-gradient(black, rgba(0, 0, 0, 0.89)) , radial-gradient(circle
+  at top left, #780096, rgb(37, 250, 232));
+  background-origin: border-box;
+  border: 3px solid transparent;
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  font-size: 30px;
+  font-weight: 900;
+  margin-left: 15px;
+  text-align: center;
+  width: 100%;
+}
+
+.settings-forms label select option {
+  background-color: black;
+}

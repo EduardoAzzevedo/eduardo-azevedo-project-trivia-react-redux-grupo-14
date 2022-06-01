@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// Actions
-// import * as actions from '../redux/actions/index';
-
 class Question extends Component {
   render() {
     const {

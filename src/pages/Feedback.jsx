@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { rankingStorage, getRanking } from '../helpers/rankingStorage';
-import './style/Feedback.css';
 import triviaImg from '../imagens/trivia.png';
 import Header from '../components/Header';
+import './style/Feedback.css';
 
 class Feedback extends Component {
   componentDidMount() {
