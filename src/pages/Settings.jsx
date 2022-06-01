@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-// Actions
 import * as actions from '../redux/actions';
+import triviaImg from '../imagens/trivia.png';
+import './style/Settings.css';
 
 class Settings extends Component {
   constructor() {
@@ -57,7 +57,7 @@ class Settings extends Component {
   onRenderForm = () => {
     const { categories, category, difficulty, type } = this.state;
     return (
-      <form>
+      <form className="settings-forms">
         <label htmlFor="inputCategory">
           Category:
           <select
@@ -105,17 +105,26 @@ class Settings extends Component {
     const { isLoading } = this.state;
     const { history } = this.props;
     return (
-      <div>
-        <h1 data-testid="settings-title">
-          Settings
-        </h1>
-        <div>
-          <button type="button" onClick={ () => history.push('/') }>
+      <>
+        <div className="trivia-container">
+          <img className="trivia-img" src={ triviaImg } alt="trivia" />
+        </div>
+        <header>
+          <h1 data-testid="settings-title">
+            Settings
+          </h1>
+        </header>
+        <main>
+          <button
+            className="back-button"
+            type="button"
+            onClick={ () => history.push('/') }
+          >
             Go Home
           </button>
-        </div>
-        { isLoading ? <h2>Loaging...</h2> : this.onRenderForm() }
-      </div>
+          { isLoading ? <h2>Loaging...</h2> : this.onRenderForm() }
+        </main>
+      </>
     );
   }
 }
