@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './style/Question.css';
 
 // Actions
 // import * as actions from '../redux/actions/index';
@@ -13,11 +12,15 @@ class Question extends Component {
     } = this.props;
     return (
       <section>
-        <div>
-          <h2 data-testid="question-category">{question.category}</h2>
-          <p data-testid="question-text">{question.question}</p>
+        <div className="question">
+          <div>
+            <h2 data-testid="question-category">{question.category}</h2>
+          </div>
+          <div>
+            <p data-testid="question-text">{question.question}</p>
+          </div>
         </div>
-        <div data-testid="answer-options">
+        <div className="answers" data-testid="answer-options">
           {answers.map((option, index) => (
             <button
               key={ index }

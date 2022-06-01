@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getToken, setToken } from '../helpers';
-
-// Componentes
 import Question from '../components/Question';
-
-// Actions
 import * as actions from '../redux/actions';
+import './style/Game.css';
 
 class Game extends Component {
   constructor() {
@@ -33,8 +30,8 @@ class Game extends Component {
     this.setState({
       timeOut: 30,
       disabled: false,
-      wrongAnswer: '',
-      correctAnswer: '',
+      wrongAnswer: 'time-ok-answer',
+      correctAnswer: 'time-ok-answer',
     });
 
     const ONE_SECOND = 1000;
@@ -153,23 +150,27 @@ class Game extends Component {
   render() {
     const { timeOut } = this.state;
     const { isNext } = this.props;
+    const timeFinish = 10;
     return (
-      <div>
+      <>
         <Header />
-        <div className="time">
-          {timeOut}
-        </div>
-        { this.onRenderQuestion() }
-        {isNext && (
-          <button
-            type="button"
-            data-testid="btn-next"
-            onClick={ this.onChangeIndex }
-          >
-            Next
-          </button>
-        )}
-      </div>
+        <main>
+          <div className={ timeOut > timeFinish ? 'time-on' : 'time-finish' }>
+            {timeOut}
+          </div>
+          { this.onRenderQuestion() }
+          {isNext && (
+            <button
+              id="next-button"
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.onChangeIndex }
+            >
+              Next
+            </button>
+          )}
+        </main>
+      </>
     );
   }
 }

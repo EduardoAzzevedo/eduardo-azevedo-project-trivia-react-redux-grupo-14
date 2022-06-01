@@ -33,7 +33,13 @@ class Header extends Component {
           alt="Avatar do Gravatar"
         />
         <p data-testid="header-player-name">{ player.name }</p>
-        <span data-testid="header-score">{ player.score }</span>
+        <div>
+          <span>
+            Score:
+            {' '}
+          </span>
+          <span data-testid="header-score">{ player.score }</span>
+        </div>
       </header>
     );
   }
