@@ -36,13 +36,13 @@ describe('Testa a página Game com 90%.', () => {
 
   it('Testa timer do componente Game- iniciando o timer', async () => {
     renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game');
-    const timer = screen.getByTestId('timer');
+    const timer = await screen.findByTestId('timer');
     expect(timer.innerHTML).toBe('30');
   })
 
   it('Testa timer do componente Game- timer inicial menos 30s', async () => {
     renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game');
-    const timer = screen.getByTestId('timer');
+    const timer = await screen.findByTestId('timer');
     expect(timer.innerHTML).toBe('30');
     jest.advanceTimersByTime(30000);
     expect(timer.innerHTML).toBe('0');
@@ -65,9 +65,9 @@ describe('Testa a página Game com 90%.', () => {
     expect(history.location.pathname).toBe('/feedback');
   });
 
-  it('Testa se ao zerar o timer exibe o botão "Next".', () => {
+  it('Testa se ao zerar o timer exibe o botão "Next".', async () => {
     const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game')
-    const timer = screen.getByTestId('timer');
+    const timer = await screen.findByTestId('timer');
     jest.advanceTimersByTime(30000);
     const btnNext = screen.getByTestId('btn-next');
     expect(btnNext).toBeInTheDocument();

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import { getToken, setToken } from '../helpers/tokenStorage';
 import Question from '../components/Question';
+import { getToken, setToken } from '../helpers/tokenStorage';
 import * as actions from '../redux/actions';
 import './style/Game.css';
 

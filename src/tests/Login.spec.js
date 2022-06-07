@@ -5,7 +5,7 @@ import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
 // helpers
-import * as helpers from '../helpers'
+import * as helpers from '../helpers/tokenStorage'
 import fetchTokenAPI from '../helpers/fetchAPI';
 
 describe('Testa a página de Login',
@@ -106,7 +106,7 @@ describe('Testa a página de Login',
     userEvent.type(email, 'teste@test.com');
     userEvent.click(button);
 
-    expect(localStorage.length).toBe(2);
+    expect(localStorage.length).toBe(1);
 
   });
 
