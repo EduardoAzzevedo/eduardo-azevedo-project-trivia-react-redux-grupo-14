@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
-import * as helpers from '../helpers';
+import * as helpers from '../helpers/tokenStorage';
 import fetchTokenAPI from '../helpers/fetchAPI';
 import triviaImg from '../imagens/trivia.png';
 import './style/Login.css';
@@ -29,13 +29,10 @@ class Login extends Component {
   }
 
   onGetToken = async () => {
-    // Pegando o TOKEN
-    // if (!helpers.getToken()) {
     const { history } = this.props;
     const token = await fetchTokenAPI();
     helpers.setToken(token);
-    this.setState({}, () => history.push('/game'));
-    // }
+    history.push('/game');
   }
 
   onHandleClick = () => {
