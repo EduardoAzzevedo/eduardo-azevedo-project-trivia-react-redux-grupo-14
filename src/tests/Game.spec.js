@@ -26,20 +26,12 @@ afterEach(() => {
   jest.useRealTimers();
 })
 
-describe('Testa a página Game com 90%.',
-() => {
-
+describe('Testa a página Game com 90%.', () => {
   it('Testa se ao carregar a página a rota é "/game".',
   () => {
     const { history } = renderWithRouterAndRedux(<App />)
     history.push('/game')
     expect(history.location.pathname).toBe('/game');
-  })
-
-  it('Testa carregamento com token válido.',
-  () => {
-    //https://jestjs.io/pt-BR/docs/timer-mocks
-    //https://jestjs.io/pt-BR/docs/setup-teardown
   })
 
   it('Testa timer do componente Game- iniciando o timer', async () => {
@@ -56,8 +48,7 @@ describe('Testa a página Game com 90%.',
     expect(timer.innerHTML).toBe('0');
   })
 
-  it('Testa se responde as 5 perguntas e direcionar para feedback.',
-  async () => {
+  it('Testa se responde as 5 perguntas e direcionar para feedback.', async () => {
     const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game')
 
     for (let i = 0; i < 5; i+= 1) {
@@ -74,8 +65,7 @@ describe('Testa a página Game com 90%.',
     expect(history.location.pathname).toBe('/feedback');
   });
 
-  it('Testa se ao zerar o timer exibe o botão "Next".',
-  () => {
+  it('Testa se ao zerar o timer exibe o botão "Next".', () => {
     const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, '/game')
     const timer = screen.getByTestId('timer');
     jest.advanceTimersByTime(30000);

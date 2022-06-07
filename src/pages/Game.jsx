@@ -86,7 +86,6 @@ class Game extends Component {
     const url = this.onGeneratorURL(token);
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
     if (data.response_code === numberMagic) {
       setToken('');
       history.push('/');
