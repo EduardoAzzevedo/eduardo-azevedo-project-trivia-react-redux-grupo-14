@@ -81,12 +81,12 @@ class Game extends Component {
 
   onFetchQuestion = async () => {
     const { history } = this.props;
-    const errorReturnAPI = 3;
+    const ERROR_RETURN_API = 3;
     const token = getToken();
     const url = this.onGeneratorURL(token);
     const response = await fetch(url);
     const data = await response.json();
-    if (data.response_code === errorReturnAPI) {
+    if (data.response_code === ERROR_RETURN_API) {
       setToken('');
       history.push('/');
     } else {
@@ -169,14 +169,14 @@ class Game extends Component {
   render() {
     const { timeOut } = this.state;
     const { isNext } = this.props;
-    const timeFinish = 10;
+    const TIME_FINISH = 10;
     return (
       <>
         <Header />
         <main>
           <div
             data-testid="timer"
-            className={ timeOut > timeFinish ? 'time-on' : 'time-finish' }
+            className={ timeOut > TIME_FINISH ? 'time-on' : 'time-finish' }
           >
             {timeOut}
           </div>
