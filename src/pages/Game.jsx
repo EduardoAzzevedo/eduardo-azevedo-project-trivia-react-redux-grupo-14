@@ -42,7 +42,7 @@ class Game extends Component {
         this.setState((prevState) => ({
           timeOut: prevState.timeOut - 1,
         }), () => {
-          if (timeOut === 0 || disabled) {
+          if (timeOut === 1 || disabled) {
             clearInterval(timeInt);
             this.onHandleClick();
           }
@@ -54,7 +54,8 @@ class Game extends Component {
   onGetAnswer = () => {
     const { questions, index } = this.state;
     const {
-      incorrect_answers: incorrectAnswers, correct_answer: correctAnswer,
+      incorrect_answers: incorrectAnswers,
+      correct_answer: correctAnswer,
     } = questions[index];
 
     const answers = [
@@ -80,12 +81,12 @@ class Game extends Component {
 
   onFetchQuestion = async () => {
     const { history } = this.props;
-    const numberMagic = 3;
+    const errorReturnAPI = 3;
     const token = getToken();
     const url = this.onGeneratorURL(token);
     const response = await fetch(url);
     const data = await response.json();
-    if (data.response_code === numberMagic) {
+    if (data.response_code === errorReturnAPI) {
       setToken('');
       history.push('/');
     } else {
@@ -98,16 +99,19 @@ class Game extends Component {
     const {
       questions, index, answers, wrongAnswer, correctAnswer, disabled,
     } = this.state;
+
     if (questions.length > 0) {
-      return (<Question
-        question={ questions[index] }
-        answers={ answers }
-        wrongAnswer={ wrongAnswer }
-        correctAnswer={ correctAnswer }
-        disabled={ disabled }
-        onClickQuestion={ this.onClickQuestion }
-        onHandleClick={ this.onHandleClick }
-      />);
+      return (
+        <Question
+          question={ questions[index] }
+          answers={ answers }
+          wrongAnswer={ wrongAnswer }
+          correctAnswer={ correctAnswer }
+          disabled={ disabled }
+          onClickQuestion={ this.onClickQuestion }
+          onHandleClick={ this.onHandleClick }
+        />
+      );
     }
     return (<h2>Loading</h2>);
   }
@@ -115,6 +119,7 @@ class Game extends Component {
   onChangeIndex = () => {
     const { index, questions } = this.state;
     const { history, dispatch } = this.props;
+
     if (index < questions.length - 1) {
       this.setState((prevState) => ({
         index: prevState.index + 1,
@@ -140,17 +145,19 @@ class Game extends Component {
     dispatch(actions.changeScore(score));
   }
 
-  onHandleClick = (e) => {
+  onHandleClick = (event) => {
     const { questions, timeOut, index } = this.state;
     const { dispatch } = this.props;
+
     this.setState((prevS) => ({
       correctAnswer: 'correct-answer',
       wrongAnswer: 'wrong-answer',
       disabled: true,
       timeOut: prevS.timeOut,
     }));
-    if (e !== undefined) {
-      const option = e.target.innerHTML;
+
+    if (event !== undefined) {
+      const option = event.target.innerHTML;
       if (questions[index].correct_answer === option) {
         this.onCalculateScore(timeOut);
         dispatch(actions.changeAssertions());
