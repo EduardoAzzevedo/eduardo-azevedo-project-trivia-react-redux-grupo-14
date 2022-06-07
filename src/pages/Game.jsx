@@ -23,7 +23,6 @@ class Game extends Component {
 
   componentDidMount = () => {
     this.onFetchQuestion();
-    this.onSetTimeOut();
   }
 
   onSetTimeOut = () => {
@@ -36,19 +35,19 @@ class Game extends Component {
 
     const ONE_SECOND = 1000;
     const timeInt = setInterval(() => {
-      const { disabled } = this.state;
+      const { disabled, timeOut } = this.state;
       if (disabled) {
         clearInterval(timeInt);
+      } else {
+        this.setState((prevState) => ({
+          timeOut: prevState.timeOut - 1,
+        }), () => {
+          if (timeOut === 0 || disabled) {
+            clearInterval(timeInt);
+            this.onHandleClick();
+          }
+        });
       }
-      this.setState((prevState) => ({
-        timeOut: prevState.timeOut - 1,
-      }), () => {
-        const { timeOut } = this.state;
-        if (timeOut === 0 || disabled) {
-          clearInterval(timeInt);
-          this.onHandleClick();
-        }
-      });
     }, ONE_SECOND);
   }
 
@@ -91,6 +90,7 @@ class Game extends Component {
       history.push('/');
     } else {
       this.setState({ questions: data.results }, () => this.onGetAnswer());
+      this.onSetTimeOut();
     }
   }
 
