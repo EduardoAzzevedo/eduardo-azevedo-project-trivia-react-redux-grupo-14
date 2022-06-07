@@ -26,15 +26,16 @@ class Ranking extends React.Component {
             Go home
           </button>
           <section className="ranking-container">
-            { getRanking().sort((a, b) => b.score - a.score).map((user, index) => (
-              <div key={ index }>
-                <img src={ user.image } alt="gravatar_image" />
-                <div className="player-name">
-                  <h2 data-testid={ `player-name-${user.id}` }>{ user.name }</h2>
+            { getRanking().sort((ElemA, ElemB) => ElemB.score - ElemA.score)
+              .map((user, index) => (
+                <div key={ index }>
+                  <img src={ user.image } alt="gravatar_image" />
+                  <div className="player-name">
+                    <h2 data-testid={ `player-name-${user.id}` }>{ user.name }</h2>
+                  </div>
+                  <h2 data-testid={ `player-score-${user.id}` }>{ user.score }</h2>
                 </div>
-                <h2 data-testid={ `player-score-${user.id}` }>{ user.score }</h2>
-              </div>
-            ))}
+              ))}
           </section>
         </main>
       </>

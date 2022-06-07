@@ -56,6 +56,7 @@ class Settings extends Component {
 
   onRenderForm = () => {
     const { categories, category, difficulty, type } = this.state;
+
     return (
       <form className="settings-forms">
         <label htmlFor="inputCategory">
@@ -104,6 +105,7 @@ class Settings extends Component {
   render() {
     const { isLoading } = this.state;
     const { history } = this.props;
+
     return (
       <>
         <div className="trivia-container">
