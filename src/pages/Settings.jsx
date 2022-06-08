@@ -39,9 +39,9 @@ class Settings extends Component {
     }, () => {
       const { category, difficulty, type } = this.state;
       const { dispatch } = this.props;
-      if (category !== '') dispatch(actions.changeCategory(category));
-      if (difficulty !== '') dispatch(actions.changeDifficulty(difficulty));
-      if (type !== '') dispatch(actions.changeType(type));
+      dispatch(actions.changeCategory(category));
+      dispatch(actions.changeDifficulty(difficulty));
+      dispatch(actions.changeType(type));
     });
   }
 
@@ -67,7 +67,7 @@ class Settings extends Component {
             onChange={ this.onHandleChange }
             value={ category }
           >
-            <option value="any">Any Category</option>
+            <option value="">Any Category</option>
             { categories.length > 0 && this.onRenderCategories() }
           </select>
         </label>
@@ -79,7 +79,7 @@ class Settings extends Component {
             onChange={ this.onHandleChange }
             value={ difficulty }
           >
-            <option value="any">Any Difficulty</option>
+            <option value="">Any Difficulty</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -93,7 +93,7 @@ class Settings extends Component {
             onChange={ this.onHandleChange }
             value={ type }
           >
-            <option value="any">Any Type</option>
+            <option value="">Any Type</option>
             <option value="multiple">Multiple Choice</option>
             <option value="boolean">True/False</option>
           </select>

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import { getToken, setToken } from '../helpers/tokenStorage';
 import Question from '../components/Question';
+import { getToken, setToken } from '../helpers/tokenStorage';
 import * as actions from '../redux/actions';
 import './style/Game.css';
 
@@ -72,10 +72,7 @@ class Game extends Component {
     const { settings } = this.props;
     const { category, difficulty, type } = settings;
     const defaultURL = 'https://opentdb.com/api.php?amount=5';
-    const categories = category !== '' ? `&category=${category}` : '';
-    const difficulties = difficulty !== '' ? `&difficulty=${difficulty}` : '';
-    const types = type !== '' ? `&type=${type}` : '';
-    const url = `${defaultURL}${categories}${difficulties}${types}&token=${token}`;
+    const url = `${defaultURL}${category}${difficulty}${type}&token=${token}`;
     return url;
   }
 
@@ -137,10 +134,9 @@ class Game extends Component {
     const { questions, index } = this.state;
     const { dispatch } = this.props;
     const { difficulty } = questions[index];
-    const hardValue = 3;
+    const difficultyLevel = ['neutral', 'easy', 'medium', 'hard'];
     const constNumber = 10;
-    const mediumOrEasy = difficulty === 'medium' ? 2 : 1;
-    const diffPoint = difficulty === 'hard' ? hardValue : mediumOrEasy;
+    const diffPoint = difficultyLevel.indexOf(difficulty);
     const score = constNumber + (timeout * diffPoint);
     dispatch(actions.changeScore(score));
   }
@@ -156,12 +152,10 @@ class Game extends Component {
       timeOut: prevS.timeOut,
     }));
 
-    if (event !== undefined) {
-      const option = event.target.innerHTML;
-      if (questions[index].correct_answer === option) {
-        this.onCalculateScore(timeOut);
-        dispatch(actions.changeAssertions());
-      }
+    if (event !== undefined
+        && event.target.innerHTML === questions[index].correct_answer) {
+      this.onCalculateScore(timeOut);
+      dispatch(actions.changeAssertions());
     }
     dispatch(actions.nextTrue(true));
   };

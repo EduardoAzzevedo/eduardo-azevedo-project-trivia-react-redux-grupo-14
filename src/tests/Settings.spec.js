@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
@@ -48,16 +48,18 @@ describe('Testa a pagina de Settings', () => {
   it('Testa se o estado é alterado quando é selecionado uma comfiguração.', async () => {
     const { store } = renderWithRouterAndRedux(<Settings />);
 
-    const categoryInput = await screen.findByRole('combobox', { name: 'Category:' });
-    userEvent.selectOptions(categoryInput, '9');
-    expect(store.getState().settings.category).toBe('9');
+    await waitFor(() => {
+      const categoryInput = screen.getByRole('combobox', { name: 'Category:' });
+      userEvent.selectOptions(categoryInput, '9');
+      expect(store.getState().settings.category).toBe('&category=9');
+    })
 
     const difficultyInput = await screen.findByRole('combobox', { name: 'Difficulty:' });
     userEvent.selectOptions(difficultyInput, 'easy');
-    expect(store.getState().settings.difficulty).toBe('easy');
+    expect(store.getState().settings.difficulty).toBe('&difficulty=easy');
 
     const typeInput = await screen.findByRole('combobox', { name: 'Type:' });
     userEvent.selectOptions(typeInput, 'multiple');
-    expect(store.getState().settings.type).toBe('multiple');
+    expect(store.getState().settings.type).toBe('&type=multiple');
   })
 })

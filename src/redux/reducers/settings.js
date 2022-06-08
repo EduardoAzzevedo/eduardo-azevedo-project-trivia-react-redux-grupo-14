@@ -15,17 +15,17 @@ const settings = (state = INITIAL_STATE, action) => {
   case CHANGE_CATEGORY:
     return {
       ...state,
-      category: action.payload !== 'any' ? action.payload : '',
+      category: action.payload !== '' ? `&category=${action.payload}` : '',
     };
   case CHANGE_DIFFICULTY:
     return {
       ...state,
-      difficulty: action.payload !== 'any' ? action.payload : '',
+      difficulty: action.payload !== '' ? `&difficulty=${action.payload}` : '',
     };
   case CHANGE_TYPE:
     return {
       ...state,
-      type: action.payload !== 'any' ? action.payload : '',
+      type: action.payload !== '' ? `&type=${action.payload}` : '',
     };
   default: return state;
   }

@@ -15,7 +15,7 @@ class Feedback extends Component {
     const { player } = this.props;
     const ranking = getRanking();
     const user = {
-      id: ranking === null ? 0 : ranking.length,
+      id: ranking.length,
       name: player.name,
       score: player.score,
       image: player.gravatarImage,
