@@ -134,10 +134,9 @@ class Game extends Component {
     const { questions, index } = this.state;
     const { dispatch } = this.props;
     const { difficulty } = questions[index];
-    const hardValue = 3;
+    const difficultyLevel = ['neutral', 'easy', 'medium', 'hard'];
     const constNumber = 10;
-    const mediumOrEasy = difficulty === 'medium' ? 2 : 1;
-    const diffPoint = difficulty === 'hard' ? hardValue : mediumOrEasy;
+    const diffPoint = difficultyLevel.indexOf(difficulty);
     const score = constNumber + (timeout * diffPoint);
     dispatch(actions.changeScore(score));
   }
@@ -153,12 +152,10 @@ class Game extends Component {
       timeOut: prevS.timeOut,
     }));
 
-    if (event !== undefined) {
-      const option = event.target.innerHTML;
-      if (questions[index].correct_answer === option) {
-        this.onCalculateScore(timeOut);
-        dispatch(actions.changeAssertions());
-      }
+    if (event !== undefined
+        && event.target.innerHTML === questions[index].correct_answer) {
+      this.onCalculateScore(timeOut);
+      dispatch(actions.changeAssertions());
     }
     dispatch(actions.nextTrue(true));
   };

@@ -7,25 +7,26 @@ export const getRanking = () => {
 
 export const rankingStorage = (user) => {
   const ranking = getRanking();
-  const userExists = ranking.find((userRanking) => (
-    userRanking.name === user.name && userRanking.score <= user.score));
-
-  if (userExists) {
-    const filterRanking = ranking
-      .map((userRanking) => {
-        if (userRanking.name === user.name) {
-          return {
-            ...userRanking,
-            score: user.score,
-          };
-        }
-        return userRanking;
-      });
-
-    const newRanking = [...filterRanking];
-    localStorage.setItem('ranking', JSON.stringify(newRanking));
-  } else {
-    const newRanking = [user, ...ranking];
-    localStorage.setItem('ranking', JSON.stringify(newRanking));
-  }
+  const newRanking = [user, ...ranking];
+  localStorage.setItem('ranking', JSON.stringify(newRanking));
 };
+
+// Função adiciona apenas usuários novos e atualiza os usuários existentes apenas se o score for maior.
+/* export const rankingStorage = (user) => {
+  const ranking = getRanking();
+  const isUserRaking = ranking.find((userRanking) => (
+    userRanking.name === user.name));
+
+  let newRanking = null;
+  if (isUserRaking) {
+    newRanking = ranking
+      .map((userRanking) => ({
+        ...userRanking,
+        score: userRanking.name === user.name && userRanking.score <= user.score
+          ? user.score : userRanking.score,
+      }));
+  } else {
+    newRanking = [user, ...ranking];
+  }
+  localStorage.setItem('ranking', JSON.stringify(newRanking));
+}; */
