@@ -2,14 +2,11 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
-import Login from '../pages/Login';
-import Feedback from '../pages/Feedback';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
 describe('Testa a página de feedbacks', () => {
   it('Testa se ao carregar a página a rota é "/feedback".', () => {
     const { history } = renderWithRouterAndRedux(<App />);
-
     history.push('/feedback');
 
     expect(history.location.pathname).toBe('/feedback');
@@ -36,5 +33,4 @@ describe('Testa a página de feedbacks', () => {
     userEvent.click(buttonRanking);
     expect(history.location.pathname).toBe('/ranking');
   })
-
 })

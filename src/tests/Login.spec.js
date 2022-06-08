@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
@@ -7,6 +7,12 @@ import * as helpers from '../helpers/tokenStorage'
 import fetchTokenAPI from '../helpers/fetchAPI';
 
 describe('Testa a página de Login', () => {
+  const response = {
+    "response_code":0,
+    "response_message":"Token Generated Successfully!",
+    "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6"
+  }
+
   it('Testa se ao carregar a página a rota é "/".', () => {
     const { history } = renderWithRouterAndRedux(<App />);
 
@@ -37,6 +43,7 @@ describe('Testa a página de Login', () => {
     const { history } = renderWithRouterAndRedux(<App />)
     const settings = screen.getByTestId('btn-settings')
     userEvent.click(settings)
+
     expect(history.location.pathname).toBe('/settings')
     expect(screen.getByTestId('settings-title')).toBeInTheDocument();
   })
@@ -80,12 +87,6 @@ describe('Testa a página de Login', () => {
   it('Testa o armazenamento do localStorage', () => {
     renderWithRouterAndRedux(<App />);
 
-    const response = {
-      "response_code":0,
-      "response_message":"Token Generated Successfully!",
-      "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6"
-    }
-
     global.fetch = jest.fn(() => Promise.resolve({
       json: () => Promise.resolve(response),
     }));
@@ -103,11 +104,6 @@ describe('Testa a página de Login', () => {
   });
 
   it('Testa a chamada do da API do Token', () => {
-    const response = {
-      "response_code":0,
-      "response_message":"Token Generated Successfully!",
-      "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6"
-    }
     global.fetch = jest.fn(() => Promise.resolve({
       json: () => Promise.resolve(response),
     }));
@@ -119,12 +115,6 @@ describe('Testa a página de Login', () => {
   })
 
   it('Testa o armazenamento do token', () => {
-    const response = {
-      "response_code":0,
-      "response_message":"Token Generated Successfully!",
-      "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6"
-    }
-
     global.fetch = jest.fn(() => Promise.resolve({
       json: () => Promise.resolve(response),
     }));
