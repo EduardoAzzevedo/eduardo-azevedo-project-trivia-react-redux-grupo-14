@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
@@ -50,14 +50,14 @@ describe('Testa a pagina de Settings', () => {
 
     const categoryInput = await screen.findByRole('combobox', { name: 'Category:' });
     userEvent.selectOptions(categoryInput, '9');
-    expect(store.getState().settings.category).toBe('9');
+    expect(store.getState().settings.category).toBe('&category=9');
 
     const difficultyInput = await screen.findByRole('combobox', { name: 'Difficulty:' });
     userEvent.selectOptions(difficultyInput, 'easy');
-    expect(store.getState().settings.difficulty).toBe('easy');
+    expect(store.getState().settings.difficulty).toBe('&difficulty=easy');
 
     const typeInput = await screen.findByRole('combobox', { name: 'Type:' });
     userEvent.selectOptions(typeInput, 'multiple');
-    expect(store.getState().settings.type).toBe('multiple');
+    expect(store.getState().settings.type).toBe('&type=multiple');
   })
 })

@@ -1,24 +1,19 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-
-// helpers
 import * as helpers from '../helpers/tokenStorage'
 import fetchTokenAPI from '../helpers/fetchAPI';
 
-describe('Testa a página de Login',
-() => {
-  it('Testa se ao carregar a página a rota é "/".',
-  () => {
+describe('Testa a página de Login', () => {
+  it('Testa se ao carregar a página a rota é "/".', () => {
     const { history } = renderWithRouterAndRedux(<App />);
 
     expect(history.location.pathname).toBe('/');
   })
 
-  it('Testa se os inputs de name e de email estão na página.',
-  () => {
+  it('Testa se os inputs de name e de email estão na página.', () => {
     renderWithRouterAndRedux(<App />);
 
     const name = screen.getByTestId('input-player-name');
@@ -28,8 +23,7 @@ describe('Testa a página de Login',
     expect(email).toBeInTheDocument();
   })
 
-  it('Testa se o botão de começar e settings do jogo está na página.',
-  () => {
+  it('Testa se o botão de começar e settings do jogo está na página.', () => {
     renderWithRouterAndRedux(<App />);
 
     const button = screen.getByTestId('btn-play');
@@ -47,8 +41,7 @@ describe('Testa a página de Login',
     expect(screen.getByTestId('settings-title')).toBeInTheDocument();
   })
 
-  it('Testa se o botão está desabilitado ao carregar a página com os inputs vazios.',
-  () => {
+  it('Testa se o botão está desabilitado ao carregar a página com os inputs vazios.', () => {
     renderWithRouterAndRedux(<App />);
 
     const button = screen.getByTestId('btn-play');
@@ -56,8 +49,7 @@ describe('Testa a página de Login',
     expect(button).toBeDisabled();
   })
 
-  it('Testa se o botão habilita ao preencher os inputs.',
-  () => {
+  it('Testa se o botão habilita ao preencher os inputs.', () => {
     renderWithRouterAndRedux(<App />);
 
     const name = screen.getByTestId('input-player-name');
@@ -106,12 +98,11 @@ describe('Testa a página de Login',
     userEvent.type(email, 'teste@test.com');
     userEvent.click(button);
 
-    expect(localStorage.length).toBe(1);
+    expect(localStorage.length).toBe(0);
 
   });
 
-  it('Testa a chamada do da API do Token',
-  () => {
+  it('Testa a chamada do da API do Token', () => {
     const response = {
       "response_code":0,
       "response_message":"Token Generated Successfully!",
@@ -125,5 +116,20 @@ describe('Testa a página de Login',
     fetchTokenAPI();
     expect(fetch).toHaveBeenCalled();
     expect(fetch).toHaveBeenCalledWith(endpoint);
+  })
+
+  it('Testa o armazenamento do token', () => {
+    const response = {
+      "response_code":0,
+      "response_message":"Token Generated Successfully!",
+      "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6"
+    }
+
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(response),
+    }));
+
+    fetchTokenAPI();
+    expect(helpers.getToken()).toBe('f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6');
   })
 });

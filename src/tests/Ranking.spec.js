@@ -15,6 +15,7 @@ describe('Testa a página Ranking.', () => {
   it('Testa se ao carregar a página a rota é "/ranking".', () => {
     const { history } = renderWithRouterAndRedux(<App />)
     history.push('/ranking')
+    
     expect(history.location.pathname).toBe('/ranking');
   })
 

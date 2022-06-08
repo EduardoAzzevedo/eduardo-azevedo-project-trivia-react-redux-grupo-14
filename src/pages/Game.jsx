@@ -72,10 +72,7 @@ class Game extends Component {
     const { settings } = this.props;
     const { category, difficulty, type } = settings;
     const defaultURL = 'https://opentdb.com/api.php?amount=5';
-    const categories = category !== '' ? `&category=${category}` : '';
-    const difficulties = difficulty !== '' ? `&difficulty=${difficulty}` : '';
-    const types = type !== '' ? `&type=${type}` : '';
-    const url = `${defaultURL}${categories}${difficulties}${types}&token=${token}`;
+    const url = `${defaultURL}${category}${difficulty}${type}&token=${token}`;
     return url;
   }
 

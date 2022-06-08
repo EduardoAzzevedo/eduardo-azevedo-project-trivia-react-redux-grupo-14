@@ -2,6 +2,7 @@ import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/rea
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
+import Game from '../pages/Game';
 import apiInvalida from './helpers/apiInvalidaMokada';
 import apiMokada from './helpers/apiMokada';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
@@ -73,14 +74,18 @@ describe('Testa a página Game com 90%.', () => {
     expect(btnNext).toBeInTheDocument();
   })
 
-  // it('Testa carregamento com token invalido.',
-  // () => {
-  // // () => {
-  // //   beforeEach(() => {
-  // //     jest.spyOn(global, 'fetch');
-  //     // global.fetch.mockResolvedValue({ json: jest.fn().mockResolvedValue(apiInvalida)})
-  // //   })
-  // // })
-  // }
+  it('Testa carregamento com token invalido.', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json:jest.fn().mockResolvedValue(apiInvalida)
+    });
+    const { history } = renderWithRouterAndRedux(<App />, {}, '/game')
+    
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/');
+    })
+  })
+
+
+  
 
 })
